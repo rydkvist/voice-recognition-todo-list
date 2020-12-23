@@ -1,10 +1,8 @@
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #71c9ce;
-  min-height: 100vh;
   margin: 0;
 }
-
 button {
   background: none;
   appearance: none;
@@ -16,7 +14,6 @@ button {
   cursor: pointer;
   outline: none;
 }
-
 p {
   margin: 0;
 }

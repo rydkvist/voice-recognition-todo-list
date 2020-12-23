@@ -7,7 +7,16 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 3.125rem;
+`;
+
+const Header = styled.header`
+  height: 15vh;
+  margin-bottom: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Button = styled.button`
@@ -35,15 +44,34 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.625rem 1.25rem;
-  width: 12.5rem;
+  width: 15rem;
   border-radius: 8px;
   background-color: #e3fdfd;
   margin: 1.25rem 0rem;
 `;
 
+const Copyright = styled.a`
+  position: absolute;
+  font-size: 0.75rem;
+  margin-top: 0.3125rem;
+  margin-right: 0.625rem;
+  top: 0;
+  right: 0;
+  color: white;
+  text-decoration: none;
+  line-height: 1.2;
+  border-bottom: 1px solid transparent;
+  &:hover,
+  &:focus {
+    opacity: 0.75;
+    border-bottom: 1px solid white;
+  }
+`;
+
 const Title = styled.h3`
   color: white;
-  margin-bottom: 1.875rem;
+  margin-top: 4.625rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   padding: 0rem 1.25rem;
 `;
@@ -58,6 +86,14 @@ const Label = styled.p`
     css`
       visibility: ${props.isVisible ? "visible" : "hidden"};
     `}
+`;
+
+const List = styled.div`
+  height: 80vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
 `;
 
 const Number = styled.p`
@@ -81,21 +117,31 @@ const App = () => {
 
   var recognition = new SpeechRecognition();
 
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState([
+    { id: 0, value: "Save TODO list on cookie/cache" },
+    { id: 1, value: "Make draggable cards so that you can sort them" },
+    { id: 2, value: "Make it able to edit the content inside of each card" },
+    { id: 3, value: "Make it able to remove tasks" },
+    { id: 4, value: "Do some sports" },
+    { id: 5, value: "Programming" },
+    { id: 6, value: "Dance" },
+    { id: 7, value: "Work" },
+    { id: 8, value: "Work" },
+    { id: 9, value: "Work" },
+  ]);
   const [isListening, setIsListening] = useState(false);
 
-  const onRecognition = () => {
+  const onRecognition = (e) => {
+    e.preventDefault();
     recognition.start();
-
-    recognition.onspeechstart = () => setIsListening(true);
-    recognition.onspeechend = () => setIsListening(false);
+    setIsListening(true);
 
     recognition.onresult = (event) => {
       if (event.results.length > 0) {
-        let transcriptResult = event.results[0][0].transcript;
+        const transcriptResult = event.results[0][0].transcript;
 
         if (!transcriptResult) {
-          alert("I didn't really catch that, try again please");
+          alert("Sorry, I didn't catch that, could you try again please?");
         } else {
           setTodoList([
             ...todoList,
@@ -103,7 +149,13 @@ const App = () => {
           ]);
         }
       }
+      setIsListening(false);
     };
+  };
+
+  const stopListening = () => {
+    recognition.stop();
+    setIsListening(false);
   };
 
   useEffect(() => {
@@ -112,17 +164,26 @@ const App = () => {
 
   return (
     <Main>
-      <Title>Press the Microphone to add a new Task</Title>
-      <Button type="button" onClick={onRecognition}>
-        {isListening ? <Spinner /> : <ion-icon name="mic" />}
-      </Button>
-      <Label isVisible={isListening}>Listening...</Label>
+      <Header>
+        <Copyright href="https://www.niklasrydkvist.com" target="_blank">
+          © Niklas Rydkvist
+        </Copyright>
+        <Title>Press the Microphone to add a new Task</Title>
+        <Button
+          type="button"
+          onClick={isListening ? stopListening : onRecognition}
+          title="Add a new task"
+        >
+          {isListening ? <Spinner /> : <ion-icon name="mic" />}
+        </Button>
+        <Label isVisible={isListening}>Listening...</Label>
+      </Header>
 
-      <div>
-        {todoList.map((item) => (
-          <Card key={item.id} description={item.value} position={item.id + 1} />
+      <List>
+        {todoList.map((item, index) => (
+          <Card key={index} description={item.value} position={item.id + 1} />
         ))}
-      </div>
+      </List>
     </Main>
   );
 };
