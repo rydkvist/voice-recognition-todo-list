@@ -57,8 +57,6 @@ const Description = styled.p`
   overflow-x: hidden;
 `;
 
-const Wrapper = styled.div``;
-
 const Card = ({ position, description }) => {
   return (
     <StyledCard>
@@ -108,13 +106,13 @@ const App = () => {
         {isLoading ? "..." : <ion-icon name="mic" />}
       </Button>
 
-      <Wrapper>
+      <div>
         {todoList.map((description, index) => {
           return (
             <Card key={index} description={description} position={index + 1} />
           );
         })}
-      </Wrapper>
+      </div>
     </Main>
   );
 };

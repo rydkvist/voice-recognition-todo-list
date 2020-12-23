@@ -1,22 +1,22 @@
 body {
-  margin: 0;
+  font-family: 'Open Sans', sans-serif;
   background-color: #71c9ce;
   min-height: 100vh;
-
+  margin: 0;
 }
 
 button {
-background: none;
-appearance: none;
-color: inherit;
-font: inherit;
-padding: 0;
-margin: 0;
-border: none;
-cursor: pointer;
-outline: none;
+  background: none;
+  appearance: none;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  outline: none;
 }
 
-p{
+p {
   margin: 0;
-  padding: 0;}
+}
