@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  background-color: #71c9ce;
+  min-height: 100vh;
+
+}
+
+button {
+background: none;
+appearance: none;
+color: inherit;
+font: inherit;
+padding: 0;
+margin: 0;
+border: none;
+cursor: pointer;
+outline: none;
+}
