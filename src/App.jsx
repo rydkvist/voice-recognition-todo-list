@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "./Spinner";
 import styled, { css } from "styled-components";
+import { useTodoList } from "./TodoContext";
 
 const Main = styled.div`
   display: flex;
@@ -114,25 +115,13 @@ const Card = ({ position, description }) => (
 );
 
 const App = () => {
+  const { todoList, setTodoList } = useTodoList();
+
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
   var recognition = new SpeechRecognition();
 
-  const initialState = [
-    { id: 0, value: "Save TODO list on cookie/cache" },
-    { id: 1, value: "Make draggable cards so that you can sort them" },
-    { id: 2, value: "Make it able to edit the content inside of each card" },
-    { id: 3, value: "Make it able to remove tasks" },
-    { id: 4, value: "Do some sports" },
-    { id: 5, value: "Programming" },
-    { id: 6, value: "Dance" },
-    { id: 7, value: "Work" },
-    { id: 8, value: "Work" },
-    { id: 9, value: "Work" },
-  ];
-
-  const [todoList, setTodoList] = useState(initialState);
   const [isListening, setIsListening] = useState(false);
 
   const onRecognition = (e) => {
