@@ -1,40 +1,33 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-
-/* 
-
-COLORS
-
-very light cyan: #e3fdfd;
-light cyan: #cbf1f5;
-cyan: #a6e3e9;
-dark cyan: #71c9ce;
-
-*/
+import { Spinner } from "./Spinner";
+import styled, { css } from "styled-components";
 
 const Main = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 6.25rem;
+  margin-top: 3.125rem;
 `;
 
 const Button = styled.button`
   display: grid;
   place-items: center;
-  width: 3.125rem;
-  height: 3.125rem;
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 50%;
-  font-size: 1.875rem;
+  font-size: 2.25rem;
   color: white;
-  background-color: #a3ddcb;
-  border: 1px solid #e8e9a1;
-
+  background-color: #71c9ce;
+  border: 2px solid #a6e3e9;
+  box-shadow: 0px;
   transition: background-color 0.3s ease-in-out;
 
   &:hover  {
-    background-color: #71c9ce;
+    background-color: #a6e3e9;
+  }
+  &:focus {
+    box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
   }
 `;
 
@@ -45,8 +38,26 @@ const StyledCard = styled.div`
   width: 12.5rem;
   border-radius: 8px;
   background-color: #e3fdfd;
-
   margin: 1.25rem 0rem;
+`;
+
+const Title = styled.h3`
+  color: white;
+  margin-bottom: 1.875rem;
+  text-align: center;
+  padding: 0rem 1.25rem;
+`;
+
+const Label = styled.p`
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  text-align: center;
+  opacity: 0.75;
+  color: white;
+  ${(props) =>
+    css`
+      visibility: ${props.isVisible ? "visible" : "hidden"};
+    `}
 `;
 
 const Number = styled.p`
@@ -57,14 +68,12 @@ const Description = styled.p`
   overflow-x: hidden;
 `;
 
-const Card = ({ position, description }) => {
-  return (
-    <StyledCard>
-      <Number>{position}</Number>
-      <Description contentEditable>{description}</Description>
-    </StyledCard>
-  );
-};
+const Card = ({ position, description }) => (
+  <StyledCard>
+    <Number>{position}</Number>
+    <Description>{description}</Description>
+  </StyledCard>
+);
 
 const App = () => {
   const SpeechRecognition =
@@ -73,45 +82,46 @@ const App = () => {
   var recognition = new SpeechRecognition();
 
   const [todoList, setTodoList] = useState([]);
-  const [voiceInput, setVoiceInput] = useState({ value: "" });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
   const onRecognition = () => {
     recognition.start();
 
-    recognition.onspeechstart = () => setIsLoading(true);
-    recognition.onspeechend = () => setIsLoading(false);
+    recognition.onspeechstart = () => setIsListening(true);
+    recognition.onspeechend = () => setIsListening(false);
 
     recognition.onresult = (event) => {
       if (event.results.length > 0) {
         let transcriptResult = event.results[0][0].transcript;
 
-        if (transcriptResult === "") {
+        if (!transcriptResult) {
           alert("I didn't really catch that, try again please");
         } else {
-          setVoiceInput({ ...voiceInput, value: transcriptResult });
-          setTodoList([...todoList, voiceInput.value]);
+          setTodoList([
+            ...todoList,
+            { id: todoList.length, value: transcriptResult },
+          ]);
         }
       }
     };
   };
 
   useEffect(() => {
-    setTodoList(["xD", "asdsad", "asdsad"]);
-  }, []);
+    console.log(todoList);
+  }, [todoList]);
 
   return (
     <Main>
+      <Title>Press the Microphone to add a new Task</Title>
       <Button type="button" onClick={onRecognition}>
-        {isLoading ? "..." : <ion-icon name="mic" />}
+        {isListening ? <Spinner /> : <ion-icon name="mic" />}
       </Button>
+      <Label isVisible={isListening}>Listening...</Label>
 
       <div>
-        {todoList.map((description, index) => {
-          return (
-            <Card key={index} description={description} position={index + 1} />
-          );
-        })}
+        {todoList.map((item) => (
+          <Card key={item.id} description={item.value} position={item.id + 1} />
+        ))}
       </div>
     </Main>
   );
