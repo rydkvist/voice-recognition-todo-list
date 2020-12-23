@@ -16,3 +16,7 @@ border: none;
 cursor: pointer;
 outline: none;
 }
+
+p{
+  margin: 0;
+  padding: 0;}

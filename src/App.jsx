@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 /* 
@@ -17,21 +17,12 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 12.5rem;
-`;
-
-const Card = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0.625rem 1.25rem;
-  width: 12.5rem;
-  border-radius: 8px;
-  background-color: #e3fdfd;
+  margin-top: 6.25rem;
 `;
 
 const Button = styled.button`
   display: grid;
-  align-items: center;
+  place-items: center;
   width: 3.125rem;
   height: 3.125rem;
   border-radius: 50%;
@@ -47,36 +38,83 @@ const Button = styled.button`
   }
 `;
 
+const StyledCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0.625rem 1.25rem;
+  width: 12.5rem;
+  border-radius: 8px;
+  background-color: #e3fdfd;
+
+  margin: 1.25rem 0rem;
+`;
+
+const Number = styled.p`
+  font-weight: 600;
+`;
+
+const Description = styled.p`
+  overflow-x: hidden;
+`;
+
+const Wrapper = styled.div``;
+
+const Card = ({ position, description }) => {
+  return (
+    <StyledCard>
+      <Number>{position}</Number>
+      <Description contentEditable>{description}</Description>
+    </StyledCard>
+  );
+};
+
 const App = () => {
-  const [voiceInput, setVoiceInput] = useState("");
-
-  const onChange = (e) => setVoiceInput(e.target.value);
-
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
   var recognition = new SpeechRecognition();
 
-  const onRecognition = (e) => {
+  const [todoList, setTodoList] = useState([]);
+  const [voiceInput, setVoiceInput] = useState({ value: "" });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onRecognition = () => {
     recognition.start();
 
-    recognition.onresult = function (event) {
+    recognition.onspeechstart = () => setIsLoading(true);
+    recognition.onspeechend = () => setIsLoading(false);
+
+    recognition.onresult = (event) => {
       if (event.results.length > 0) {
-        setVoiceInput(event.results[0][0].transcript);
-        // query.form.submit();
+        let transcriptResult = event.results[0][0].transcript;
+
+        if (transcriptResult === "") {
+          alert("I didn't really catch that, try again please");
+        } else {
+          setVoiceInput({ ...voiceInput, value: transcriptResult });
+          setTodoList([...todoList, voiceInput.value]);
+        }
       }
     };
   };
 
+  useEffect(() => {
+    setTodoList(["xD", "asdsad", "asdsad"]);
+  }, []);
+
   return (
     <Main>
       <Button type="button" onClick={onRecognition}>
-        +
+        {isLoading ? "..." : <ion-icon name="mic" />}
       </Button>
-      <Card>
-        <p>#1</p>
-        <p>{voiceInput}</p>
-      </Card>
+
+      <Wrapper>
+        {todoList.map((description, index) => {
+          return (
+            <Card key={index} description={description} position={index + 1} />
+          );
+        })}
+      </Wrapper>
     </Main>
   );
 };
