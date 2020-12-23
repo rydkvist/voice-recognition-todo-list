@@ -32,7 +32,7 @@ const Button = styled.button`
   box-shadow: 0px;
   transition: background-color 0.3s ease-in-out;
 
-  &:hover  {
+  &:hover {
     background-color: #a6e3e9;
   }
   &:focus {
@@ -91,8 +91,10 @@ const Label = styled.p`
 const List = styled.div`
   height: 80vh;
   width: 100%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   overflow-y: auto;
 `;
 
@@ -117,7 +119,7 @@ const App = () => {
 
   var recognition = new SpeechRecognition();
 
-  const [todoList, setTodoList] = useState([
+  const initialState = [
     { id: 0, value: "Save TODO list on cookie/cache" },
     { id: 1, value: "Make draggable cards so that you can sort them" },
     { id: 2, value: "Make it able to edit the content inside of each card" },
@@ -128,7 +130,9 @@ const App = () => {
     { id: 7, value: "Work" },
     { id: 8, value: "Work" },
     { id: 9, value: "Work" },
-  ]);
+  ];
+
+  const [todoList, setTodoList] = useState(initialState);
   const [isListening, setIsListening] = useState(false);
 
   const onRecognition = (e) => {
