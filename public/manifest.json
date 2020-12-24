@@ -1,6 +1,6 @@
 {
   "short_name": "Voice Recognition TODO List",
-  "name": "A TODO list application where you add tasks with Voice Recognition.",
+  "name": "This is a TODO list application where you can add, remove, and finish tasks. Both with voice recognition, or by manually adding them.",
   "icons": [
     {
       "src": "favicon.svg",

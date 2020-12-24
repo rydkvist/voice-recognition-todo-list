@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { TodoListProvider } from "./TodoContext";
+import App from "./App";
+import { GlobalStyle } from "./GlobalStyles.jsx";
+import { TodoListProvider } from "./context/TodoContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <TodoListProvider>
+      <GlobalStyle />
       <App />
     </TodoListProvider>
   </React.StrictMode>,

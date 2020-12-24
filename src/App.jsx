@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Spinner } from "./Spinner";
+import { Spinner } from "./components/Spinner";
 import styled, { css } from "styled-components";
-import { useTodoList } from "./TodoContext";
-import { Card, CompletedCard } from "./Card";
+import { useTodoList } from "./context/TodoContext";
+import { Task, CompletedTask } from "./components/Task";
 
 const Main = styled.div`
   display: flex;
@@ -219,10 +219,10 @@ const App = () => {
       <List>
         {showCompletedTasks
           ? completedTodoList.map((item, index) => (
-              <CompletedCard key={index} description={item.value} />
+              <CompletedTask key={index} description={item.value} />
             ))
           : todoList.map((item, index) => (
-              <Card key={index} description={item.value} position={item.id} />
+              <Task key={index} description={item.value} position={item.id} />
             ))}
       </List>
     </Main>

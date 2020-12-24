@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTodoList } from "./TodoContext";
+import { useTodoList } from "../context/TodoContext";
 
 const StyledCard = styled.div`
   display: flex;
@@ -8,11 +8,11 @@ const StyledCard = styled.div`
   padding: 0.625rem 1.25rem;
   width: 15rem;
   border-radius: 8px;
-  background-color: #e3fdfd;
+  background-color: #dafdfd;
   margin: 1.25rem 0rem;
 `;
 
-const RemoveButton = styled.button``;
+const Button = styled.button``;
 
 const Number = styled.p`
   font-weight: 600;
@@ -22,22 +22,20 @@ const Description = styled.p`
   overflow-x: hidden;
 `;
 
-export const Card = ({ position, description }) => {
+export const Task = ({ position, description }) => {
   const { onRemoveTask, onTaskDone } = useTodoList();
 
   return (
     <StyledCard>
       <Number>{position + 1}</Number>
       <Description>{description}</Description>
-      <RemoveButton onClick={() => onRemoveTask(position)}>
-        Remove ❌
-      </RemoveButton>
-      <RemoveButton onClick={() => onTaskDone(position)}>Done ✅</RemoveButton>
+      <Button onClick={() => onRemoveTask(position)}>Remove ❌</Button>
+      <Button onClick={() => onTaskDone(position)}>Done ✅</Button>
     </StyledCard>
   );
 };
 
-export const CompletedCard = ({ description }) => {
+export const CompletedTask = ({ description }) => {
   return (
     <StyledCard>
       <Number>COMPLETED</Number>

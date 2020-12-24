@@ -1,7 +1,7 @@
 {
   "name": "voice-recognition-todo-list",
   "version": "1.0.0",
-  "description": "A TODO list application where you add tasks with Voice Recognition.",
+  "description": "This is a TODO list application where you can add, remove, and finish tasks. Both with voice recognition, or by manually adding them.",
   "author": "Nojze <niklasryd01@gmail.com>",
   "license": "MIT",
   "private": true,

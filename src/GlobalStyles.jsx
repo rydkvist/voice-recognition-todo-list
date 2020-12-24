@@ -1,13 +1,22 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
+
 html {
   height: -webkit-fill-available;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #71c9ce; 
 }
+
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #71c9ce;
   margin: 0;
   min-height: 100vh;
   min-height: -webkit-fill-available;
 }
+
 button {
   background: none;
   appearance: none;
@@ -19,6 +28,9 @@ button {
   cursor: pointer;
   outline: none;
 }
-p {
+
+p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
+  padding: 0;
 }
+`;
