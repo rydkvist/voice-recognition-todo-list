@@ -1,7 +1,23 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { taskColors } from "../components/Task";
 
-const TodoListContext = createContext();
+export type TodoItemType = {
+  id: number;
+  value: string;
+  bg: string;
+  borderColor: string;
+};
+
+const TodoListContext = createContext({
+  todoList: [],
+  completedTodoList: [],
+  setTodoList: (data: any) => {},
+  setCompletedTodoList: (data: any) => {},
+  amountOfCompletedTasks: 0,
+  onChangeTaskColor: (itemId: number, bg: string, borderColor: string) => {},
+  onTaskDone: (itemId: number) => {},
+  onRemoveTask: (itemId: number) => {},
+});
 
 export const useTodoList = () => {
   const context = useContext(TodoListContext);
@@ -14,10 +30,11 @@ export const useTodoList = () => {
 /* 
   Features: 
   - Change "Be done with a task first! :)" message when you add a better UI for the completed dashboard
+  - Add jest tests
   - Update to have nicer UI
 */
 
-const initialState = [
+const initialState: TodoItemType[] = [
   {
     id: 0,
     value: "Welcome! Here you can add, remove, and finish tasks",
@@ -40,42 +57,51 @@ const initialState = [
   },
 ];
 
-const localState = JSON.parse(localStorage.getItem("todoListStorage"));
+const localState = JSON.parse(
+  localStorage.getItem("todoListStorage") || JSON.stringify(initialState)
+);
 const localCompletedState = JSON.parse(
-  localStorage.getItem("completedTodoListStorage")
+  localStorage.getItem("completedTodoListStorage") || "[]"
 );
 
-export const TodoListProvider = ({ children }) => {
-  const [todoList, setTodoList] = useState(localState || initialState);
+export const TodoListProvider = ({ children }: any) => {
+  const [todoList, setTodoList] = useState(localState);
   const [completedTodoList, setCompletedTodoList] = useState(
-    localCompletedState || []
+    localCompletedState
   );
 
   const amountOfCompletedTasks = completedTodoList.length;
 
-  const onRemoveTask = (itemId) => {
+  const onRemoveTask = (itemId: number) => {
     // remove selected item from list
-    const tempNewList = todoList.filter((item) => item.id !== itemId);
+    const tempNewList = todoList.filter(
+      (item: TodoItemType) => item.id !== itemId
+    );
 
     // add a new id to every item after the removal
-    const newList = tempNewList.map((item, index) => {
+    const newList = tempNewList.map((item: TodoItemType, index: number) => {
       return { ...item, id: index };
     });
 
     setTodoList(newList);
   };
 
-  const onTaskDone = (itemId) => {
+  const onTaskDone = (itemId: number) => {
+    const task = todoList.find((item: TodoItemType) => item.id === itemId);
+
     // Add task to the completed list of tasks
-    const task = todoList.find((item) => item.id === itemId);
     setCompletedTodoList([...completedTodoList, task]);
 
     onRemoveTask(itemId);
   };
 
-  const onChangeTaskColor = (itemId, bg, borderColor) => {
+  const onChangeTaskColor = (
+    itemId: number,
+    bg: string,
+    borderColor: string
+  ) => {
     // Create a new list with the edited color of the task
-    const newList = todoList.map((item) => {
+    const newList = todoList.map((item: TodoItemType) => {
       return item.id === itemId ? { ...item, bg: bg, borderColor } : item;
     });
 
@@ -97,6 +123,7 @@ export const TodoListProvider = ({ children }) => {
         completedTodoList,
         amountOfCompletedTasks,
         setTodoList,
+        setCompletedTodoList,
         onTaskDone,
         onRemoveTask,
         onChangeTaskColor,

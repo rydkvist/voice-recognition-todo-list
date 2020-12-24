@@ -2,7 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { colors } from "../utils/colors";
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{
+  size: string;
+  fontSize: string;
+  borderColor: string;
+  backgroundColor: string;
+}>`
   display: grid;
   place-items: center;
 
@@ -35,6 +40,7 @@ const StyledButton = styled.button`
 
 export const Button = ({
   size,
+  type,
   fontSize,
   title,
   backgroundColor,
@@ -42,10 +48,11 @@ export const Button = ({
   color,
   children,
   onClick,
-}) => {
+}: any) => {
   return (
     <StyledButton
       size={size}
+      type={type}
       fontSize={fontSize}
       backgroundColor={backgroundColor}
       borderColor={borderColor}

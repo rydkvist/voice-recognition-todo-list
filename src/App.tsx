@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "./components/Spinner";
 import styled, { css } from "styled-components";
-import { useTodoList } from "./context/TodoContext";
-import { Task, CompletedTask } from "./components/Task";
+import { useTodoList, TodoItemType } from "./context/TodoContext";
+import { Task, CompletedTask, taskColors } from "./components/Task";
 import { Button } from "./components/Button";
 import { colors } from "./utils/colors";
 
@@ -56,7 +56,7 @@ const Copyright = styled.a`
   }
 `;
 
-const Title = styled.h3`
+const Title = styled.h3<{ isVisible: boolean }>`
   color: white;
   margin-top: 2.5rem;
   margin-bottom: 1.25rem;
@@ -75,7 +75,7 @@ const Title = styled.h3`
     `}
 `;
 
-const Label = styled.p`
+const Label = styled.p<{ isVisible: boolean }>`
   margin-top: 0.625rem;
   font-size: 0.875rem;
   text-align: center;
@@ -113,7 +113,7 @@ const App = () => {
 
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
 
-  const onRecognition = (e) => {
+  const onRecognition = (e: any) => {
     e.preventDefault();
     if (recognition) {
       recognition.start();
@@ -128,7 +128,11 @@ const App = () => {
           } else {
             setTodoList([
               ...todoList,
-              { id: todoList.length, value: transcriptResult },
+              {
+                id: todoList.length,
+                value: transcriptResult,
+                ...taskColors[0],
+              },
             ]);
           }
         }
@@ -141,7 +145,10 @@ const App = () => {
 
   const onAddTask = () => {
     const taskDescription = prompt("Describe your task");
-    setTodoList([...todoList, { id: todoList.length, value: taskDescription }]);
+    setTodoList([
+      ...todoList,
+      { id: todoList.length, value: taskDescription, ...taskColors[0] },
+    ]);
   };
 
   const stopListening = () => {
@@ -195,10 +202,10 @@ const App = () => {
 
       <List>
         {showCompletedTasks
-          ? completedTodoList.map((item, index) => (
+          ? completedTodoList.map((item: TodoItemType, index: number) => (
               <CompletedTask key={index} description={item.value} />
             ))
-          : todoList.map((item, index) => (
+          : todoList.map((item: TodoItemType, index: number) => (
               <Task
                 key={index}
                 description={item.value}
