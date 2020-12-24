@@ -138,6 +138,11 @@ const App = () => {
     }
   };
 
+  const onAddTask = () => {
+    const taskDescription = prompt("Describe your task");
+    setTodoList([...todoList, { id: todoList.length, value: taskDescription }]);
+  };
+
   const stopListening = () => {
     recognition.stop();
     setIsListening(false);
@@ -170,9 +175,10 @@ const App = () => {
           >
             {isListening ? <Spinner /> : <ion-icon name="mic" />}
           </Button>
+          <Button type="button" onClick={onAddTask} title="Add a new task">
+            <ion-icon name="add-outline" />
+          </Button>
           <Button
-            fontSize="1.5rem"
-            size="2.5rem"
             onClick={onChangeDashboard}
             title={
               showCompletedTasks ? "Show current tasks" : "Show completed tasks"

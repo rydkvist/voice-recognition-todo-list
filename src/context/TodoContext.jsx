@@ -20,10 +20,10 @@ export const useTodoList = () => {
 */
 
 const initialState = [
-  { id: 1, value: "Welcome! Here you can add, remove, and finish tasks" },
-  { id: 2, value: "They will be saved on your local device automatically :)" },
-  { id: 3, value: "You can also choose to add them with voice recognition" },
-  { id: 4, value: "Or just manually typing the tasks!" },
+  { id: 0, value: "Welcome! Here you can add, remove, and finish tasks" },
+  { id: 1, value: "They will be saved on your local device automatically :)" },
+  { id: 2, value: "You can also choose to add them with voice recognition" },
+  { id: 3, value: "Or just manually typing the tasks!" },
 ];
 
 const localState = JSON.parse(localStorage.getItem("todoListStorage"));

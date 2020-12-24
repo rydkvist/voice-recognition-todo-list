@@ -5,9 +5,9 @@ const StyledButton = styled.button`
   display: grid;
   place-items: center;
 
-  width: ${(props) => (props.size ? props.size : "3.75rem")};
-  height: ${(props) => (props.size ? props.size : "3.75rem")};
-  font-size: ${(props) => (props.fontSize ? props.fontSize : "2.25rem")};
+  width: ${(props) => (props.size ? props.size : "3.125rem")};
+  height: ${(props) => (props.size ? props.size : "3.125rem")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "1.875rem")};
 
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : "#71c9ce"};
