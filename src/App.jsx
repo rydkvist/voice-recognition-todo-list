@@ -104,9 +104,9 @@ const App = () => {
   } = useTodoList();
 
   const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+    window.SpeechRecognition || window.webkitSpeechRecognition || "";
 
-  var recognition = new SpeechRecognition();
+  var recognition = SpeechRecognition && new SpeechRecognition();
 
   const [isListening, setIsListening] = useState(false);
 
@@ -114,24 +114,28 @@ const App = () => {
 
   const onRecognition = (e) => {
     e.preventDefault();
-    recognition.start();
-    setIsListening(true);
+    if (recognition) {
+      recognition.start();
+      setIsListening(true);
 
-    recognition.onresult = (event) => {
-      if (event.results.length > 0) {
-        const transcriptResult = event.results[0][0].transcript;
+      recognition.onresult = (event) => {
+        if (event.results.length > 0) {
+          const transcriptResult = event.results[0][0].transcript;
 
-        if (!transcriptResult) {
-          alert("Sorry, I didn't catch that, could you try again please?");
-        } else {
-          setTodoList([
-            ...todoList,
-            { id: todoList.length, value: transcriptResult },
-          ]);
+          if (!transcriptResult) {
+            alert("Sorry, I didn't catch that, could you try again please?");
+          } else {
+            setTodoList([
+              ...todoList,
+              { id: todoList.length, value: transcriptResult },
+            ]);
+          }
         }
-      }
-      setIsListening(false);
-    };
+        setIsListening(false);
+      };
+    } else {
+      alert("You can't use speech recognition on this device :(");
+    }
   };
 
   const stopListening = () => {
