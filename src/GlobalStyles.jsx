@@ -12,9 +12,8 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
+  height: 100%;
   margin: 0;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
 }
 
 button {

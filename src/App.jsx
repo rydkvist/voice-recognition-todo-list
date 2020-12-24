@@ -16,6 +16,9 @@ const Header = styled.header`
   height: 100%;
   width: 100%;
   display: flex;
+  position: sticky;
+  top: 0;
+  background-color: #71c9ce;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -83,7 +86,6 @@ const Label = styled.p`
 `;
 
 const List = styled.div`
-  height: 80vh;
   width: 100%;
   display: flex;
   justify-content: flex-start;
