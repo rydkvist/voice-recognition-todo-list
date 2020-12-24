@@ -1,5 +1,36 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { taskColors } from "../components/Task";
+import { getTodoList, getCompletedList } from "../utils/localStorage";
+
+/* 
+  Features: 
+  - Change "Be done with a task first! :)" message when you add a better UI for the completed dashboard
+  - Add jest tests
+  - Update to have nicer UI
+*/
+
+export const initialState: TodoItemType[] = [
+  {
+    id: 0,
+    value: "Welcome! Here you can add, remove, and finish tasks",
+    ...taskColors[0],
+  },
+  {
+    id: 1,
+    value: "They will be saved on your local device automatically :)",
+    ...taskColors[1],
+  },
+  {
+    id: 2,
+    value: "You can also choose to add them with voice recognition",
+    ...taskColors[2],
+  },
+  {
+    id: 3,
+    value: "Or just manually typing the tasks!",
+    ...taskColors[3],
+  },
+];
 
 export type TodoItemType = {
   id: number;
@@ -27,47 +58,10 @@ export const useTodoList = () => {
   return context;
 };
 
-/* 
-  Features: 
-  - Change "Be done with a task first! :)" message when you add a better UI for the completed dashboard
-  - Add jest tests
-  - Update to have nicer UI
-*/
-
-const initialState: TodoItemType[] = [
-  {
-    id: 0,
-    value: "Welcome! Here you can add, remove, and finish tasks",
-    ...taskColors[0],
-  },
-  {
-    id: 1,
-    value: "They will be saved on your local device automatically :)",
-    ...taskColors[1],
-  },
-  {
-    id: 2,
-    value: "You can also choose to add them with voice recognition",
-    ...taskColors[2],
-  },
-  {
-    id: 3,
-    value: "Or just manually typing the tasks!",
-    ...taskColors[3],
-  },
-];
-
-const localState = JSON.parse(
-  localStorage.getItem("todoListStorage") || JSON.stringify(initialState)
-);
-const localCompletedState = JSON.parse(
-  localStorage.getItem("completedTodoListStorage") || "[]"
-);
-
 export const TodoListProvider = ({ children }: any) => {
-  const [todoList, setTodoList] = useState(localState);
+  const [todoList, setTodoList] = useState(getTodoList());
   const [completedTodoList, setCompletedTodoList] = useState(
-    localCompletedState
+    getCompletedList()
   );
 
   const amountOfCompletedTasks = completedTodoList.length;

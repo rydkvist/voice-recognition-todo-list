@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useTodoList } from "../context/TodoContext";
 import { colors } from "../utils/colors";
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<{ bg?: string; borderColor?: string }>`
   display: flex;
   flex-direction: column;
   width: 15rem;
@@ -25,7 +25,7 @@ const Palette = styled.div`
   }
 `;
 
-const Color = styled.button`
+const Color = styled.button<{ bg: string; borderColor: string }>`
   width: 0.75rem;
   height: 0.75rem;
   background-color: ${(props) => (props.bg ? props.bg : colors.white)};
@@ -49,7 +49,14 @@ export const taskColors = [
   { bg: colors.lightYellow, borderColor: colors.yellow },
 ];
 
-export const Task = ({ position, description, bg, borderColor }) => {
+type TaskProps = {
+  position: number;
+  description: string;
+  bg: string;
+  borderColor: string;
+};
+
+export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
   const { onRemoveTask, onTaskDone, onChangeTaskColor } = useTodoList();
 
   return (
@@ -74,7 +81,7 @@ export const Task = ({ position, description, bg, borderColor }) => {
   );
 };
 
-export const CompletedTask = ({ description }) => {
+export const CompletedTask = ({ description }: any) => {
   return (
     <StyledCard>
       <Number>COMPLETED</Number>
