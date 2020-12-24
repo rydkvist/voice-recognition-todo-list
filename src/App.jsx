@@ -169,6 +169,11 @@ const App = () => {
     console.log(todoList);
   }, [todoList]);
 
+  const onChangeDashboard = () =>
+    amountOfCompletedTasks === 0
+      ? alert("Be done with a task first! :)")
+      : setShowCompletedTasks(!showCompletedTasks);
+
   return (
     <Main>
       <Header>
@@ -186,7 +191,7 @@ const App = () => {
             {isListening ? <Spinner /> : <ion-icon name="mic" />}
           </Button>
           <ChangeTasksButton
-            onClick={() => setShowCompletedTasks(!showCompletedTasks)}
+            onClick={onChangeDashboard}
             title={
               showCompletedTasks ? "Show current tasks" : "Show completed tasks"
             }

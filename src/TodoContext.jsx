@@ -10,17 +10,27 @@ export const useTodoList = () => {
   return context;
 };
 
+/* 
+
+  Features: 
+  - Make it able to add tasks manually
+  - Make it able to sort the task, so that they are draggable
+  - Make it able to edit the description/content of each task
+  - Update to have nicer UI
+
+*/
+
 const initialState = [
-  { id: 0, value: "Save TODO list on cookie/cache (done)" },
-  { id: 1, value: "Make draggable cards so that you can sort them" },
-  { id: 2, value: "Make it able to edit the content inside of each card" },
-  { id: 3, value: "Make it able to remove tasks (done)" },
-  { id: 4, value: "Do some sports" },
-  { id: 5, value: "Programming" },
-  { id: 6, value: "Dance" },
-  { id: 7, value: "Work" },
-  { id: 8, value: "Work" },
-  { id: 9, value: "Work" },
+  // { id: 0, value: "Save TODO list on cookie/cache (done)" },
+  // { id: 1, value: "Make draggable cards so that you can sort them" },
+  // { id: 2, value: "Make it able to edit the content inside of each card" },
+  // { id: 3, value: "Make it able to remove tasks (done)" },
+  // { id: 4, value: "Do some sports" },
+  // { id: 5, value: "Programming" },
+  // { id: 6, value: "Dance" },
+  // { id: 7, value: "Work" },
+  // { id: 8, value: "Work" },
+  // { id: 9, value: "Work" },
 ];
 
 const localState = JSON.parse(localStorage.getItem("todoListStorage"));
@@ -52,6 +62,7 @@ export const TodoListProvider = ({ children }) => {
     // Add task to the completed list of tasks
     const task = todoList.find((item) => item.id === itemId);
     setCompletedTodoList([...completedTodoList, task]);
+
     onRemoveTask(itemId);
   };
 
@@ -69,6 +80,7 @@ export const TodoListProvider = ({ children }) => {
         todoList,
         completedTodoList,
         amountOfCompletedTasks,
+        setTodoList,
         onTaskDone,
         onRemoveTask,
       }}
