@@ -21,16 +21,10 @@ export const useTodoList = () => {
 */
 
 const initialState = [
-  // { id: 0, value: "Save TODO list on cookie/cache (done)" },
-  // { id: 1, value: "Make draggable cards so that you can sort them" },
-  // { id: 2, value: "Make it able to edit the content inside of each card" },
-  // { id: 3, value: "Make it able to remove tasks (done)" },
-  // { id: 4, value: "Do some sports" },
-  // { id: 5, value: "Programming" },
-  // { id: 6, value: "Dance" },
-  // { id: 7, value: "Work" },
-  // { id: 8, value: "Work" },
-  // { id: 9, value: "Work" },
+  { id: 1, value: "Welcome! Here you can add, remove, and finish tasks" },
+  { id: 2, value: "They will be saved on your local device automatically :)" },
+  { id: 3, value: "You can also choose to add them with voice recognition" },
+  { id: 4, value: "Or just manually typing the tasks!" },
 ];
 
 const localState = JSON.parse(localStorage.getItem("todoListStorage"));

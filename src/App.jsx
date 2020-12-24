@@ -12,8 +12,7 @@ const Main = styled.div`
 `;
 
 const Header = styled.header`
-  height: 15vh;
-  margin-bottom: 5vh;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -93,10 +92,21 @@ const Copyright = styled.a`
 
 const Title = styled.h3`
   color: white;
-  margin-top: 4.625rem;
-  margin-bottom: 0.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
   text-align: center;
   padding: 0rem 1.25rem;
+  opacity: 1;
+  height: 100%;
+
+  transition: all 2s ease-out;
+
+  ${(props) =>
+    !props.isVisible &&
+    css`
+      opacity: 0;
+      height: 0;
+    `}
 `;
 
 const Label = styled.p`
@@ -180,7 +190,9 @@ const App = () => {
         <Copyright href="https://www.niklasrydkvist.com" target="_blank">
           © Niklas Rydkvist
         </Copyright>
-        <Title>Press the Microphone to add a new Task</Title>
+        <Title isVisible={amountOfCompletedTasks < 3}>
+          Press the Microphone to add a new Task
+        </Title>
 
         <Group>
           <Button
