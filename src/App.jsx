@@ -10,6 +10,7 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 `;
 
 const Header = styled.header`
