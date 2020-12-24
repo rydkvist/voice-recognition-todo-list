@@ -15,7 +15,7 @@ body {
   margin: 0;
 }
 
-button {
+button, input {
   background: none;
   appearance: none;
   color: inherit;

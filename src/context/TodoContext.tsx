@@ -48,6 +48,7 @@ const TodoListContext = createContext({
   onChangeTaskColor: (itemId: number, bg: string, borderColor: string) => {},
   onTaskDone: (itemId: number) => {},
   onRemoveTask: (itemId: number) => {},
+  onEditDescription: (itemId: number, description: string) => {},
 });
 
 export const useTodoList = () => {
@@ -89,6 +90,16 @@ export const TodoListProvider = ({ children }: any) => {
     onRemoveTask(itemId);
   };
 
+  const onEditDescription = (itemId: number, description: string) => {
+    // Create a new list with the edited description of the task
+    // const newList = todoList.map((item: TodoItemType) => {
+    //   return item.id === itemId ? { ...item, value: description } : item;
+    // });
+    // setTodoList(newList);
+    // console.log(description, "description");
+    // console.log(newList, "new list");
+  };
+
   const onChangeTaskColor = (
     itemId: number,
     bg: string,
@@ -118,6 +129,7 @@ export const TodoListProvider = ({ children }: any) => {
         amountOfCompletedTasks,
         setTodoList,
         setCompletedTodoList,
+        onEditDescription,
         onTaskDone,
         onRemoveTask,
         onChangeTaskColor,

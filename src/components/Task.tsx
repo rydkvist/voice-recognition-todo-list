@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useTodoList } from "../context/TodoContext";
+import { TodoItemType, useTodoList } from "../context/TodoContext";
 import { colors } from "../utils/colors";
 
 const StyledCard = styled.div<{ bg?: string; borderColor?: string }>`
@@ -57,7 +57,28 @@ type TaskProps = {
 };
 
 export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
-  const { onRemoveTask, onTaskDone, onChangeTaskColor } = useTodoList();
+  const {
+    todoList,
+    onRemoveTask,
+    onTaskDone,
+    onChangeTaskColor,
+    onEditDescription,
+  } = useTodoList();
+
+  // const [descriptionInput, setDescriptionInput] = useState(description);
+
+  // const onChangeDescription = (e: any) => {
+  //   setDescriptionInput(e.target.value);
+  //   onEditDescription(position, descriptionInput);
+  // };
+
+  // useEffect(() => {
+  //   const thisTask = todoList.find(
+  //     (item: TodoItemType) => item.id === position
+  //   ) || { value: "" };
+
+  //   setDescriptionInput(thisTask.value);
+  // }, [todoList, position]);
 
   return (
     <StyledCard bg={bg} borderColor={borderColor}>
