@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Spinner } from "./Spinner";
 import styled, { css } from "styled-components";
 import { useTodoList } from "./TodoContext";
+import { Card } from "./Card";
 
 const Main = styled.div`
   display: flex;
@@ -39,16 +40,6 @@ const Button = styled.button`
   &:focus {
     box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
   }
-`;
-
-const StyledCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0.625rem 1.25rem;
-  width: 15rem;
-  border-radius: 8px;
-  background-color: #e3fdfd;
-  margin: 1.25rem 0rem;
 `;
 
 const Copyright = styled.a`
@@ -98,21 +89,6 @@ const List = styled.div`
   flex-direction: column;
   overflow-y: auto;
 `;
-
-const Number = styled.p`
-  font-weight: 600;
-`;
-
-const Description = styled.p`
-  overflow-x: hidden;
-`;
-
-const Card = ({ position, description }) => (
-  <StyledCard>
-    <Number>{position}</Number>
-    <Description>{description}</Description>
-  </StyledCard>
-);
 
 const App = () => {
   const { todoList, setTodoList } = useTodoList();
@@ -174,7 +150,7 @@ const App = () => {
 
       <List>
         {todoList.map((item, index) => (
-          <Card key={index} description={item.value} position={item.id + 1} />
+          <Card key={index} description={item.value} position={item.id} />
         ))}
       </List>
     </Main>
