@@ -1,4 +1,5 @@
 import React from "react";
+import { colors } from "../utils/colors";
 
 export const Spinner = () => (
   <svg
@@ -15,11 +16,11 @@ export const Spinner = () => (
     preserveAspectRatio="xMidYMid"
   >
     <circle
-      cx="50"
-      cy="50"
+      cx="45"
+      cy="45"
       r="20"
       strokeWidth="8"
-      stroke="#e3fdfd"
+      stroke={colors.veryLightCyan}
       strokeDasharray="47.12388980384689 47.12388980384689"
       fill="none"
       strokeLinecap="round"
@@ -30,7 +31,7 @@ export const Spinner = () => (
         repeatCount="indefinite"
         dur="1s"
         keyTimes="0;1"
-        values="0 50 50;360 50 50"
+        values="0 45 45;360 45 45"
       />
     </circle>
   </svg>

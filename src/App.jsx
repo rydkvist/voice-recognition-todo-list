@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { useTodoList } from "./context/TodoContext";
 import { Task, CompletedTask } from "./components/Task";
 import { Button } from "./components/Button";
+import { colors } from "./utils/colors";
 
 const Main = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ const Header = styled.header`
   display: flex;
   position: sticky;
   top: 0;
-  background-color: #71c9ce;
+  background-color: ${colors.darkCyan};
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -198,7 +199,13 @@ const App = () => {
               <CompletedTask key={index} description={item.value} />
             ))
           : todoList.map((item, index) => (
-              <Task key={index} description={item.value} position={item.id} />
+              <Task
+                key={index}
+                description={item.value}
+                position={item.id}
+                bg={item.bg}
+                borderColor={item.borderColor}
+              />
             ))}
       </List>
     </Main>

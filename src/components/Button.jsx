@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { colors } from "../utils/colors";
 
 const StyledButton = styled.button`
   display: grid;
@@ -10,13 +11,13 @@ const StyledButton = styled.button`
   font-size: ${(props) => (props.fontSize ? props.fontSize : "1.875rem")};
 
   background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : "#71c9ce"};
+    props.backgroundColor ? props.backgroundColor : colors.darkCyan};
   border-color: ${(props) =>
-    props.borderColor ? props.borderColor : "#a6e3e9"};
+    props.borderColor ? props.borderColor : colors.cyan};
 
-  color: ${(props) => (props.color ? props.color : "#FFF")};
+  color: ${(props) => (props.color ? props.color : colors.white)};
 
-  border: 2px solid #a6e3e9;
+  border: 2px solid ${colors.cyan};
   border-radius: 50%;
 
   box-shadow: 0px;
@@ -25,7 +26,7 @@ const StyledButton = styled.button`
 
   &:hover {
     background-color: ${(props) =>
-      props.borderColor ? props.borderColor : "#a6e3e9"};
+      props.borderColor ? props.borderColor : colors.cyan};
   }
   &:focus {
     box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);

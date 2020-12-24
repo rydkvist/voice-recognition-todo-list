@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import { taskColors } from "../components/Task";
 
 const TodoListContext = createContext();
 
@@ -12,18 +13,31 @@ export const useTodoList = () => {
 
 /* 
   Features: 
-  - Make it able to add tasks manually
-  - Make it able to sort the task, so that they are draggable
-  - Make it able to edit the description/content of each task
   - Change "Be done with a task first! :)" message when you add a better UI for the completed dashboard
   - Update to have nicer UI
 */
 
 const initialState = [
-  { id: 0, value: "Welcome! Here you can add, remove, and finish tasks" },
-  { id: 1, value: "They will be saved on your local device automatically :)" },
-  { id: 2, value: "You can also choose to add them with voice recognition" },
-  { id: 3, value: "Or just manually typing the tasks!" },
+  {
+    id: 0,
+    value: "Welcome! Here you can add, remove, and finish tasks",
+    ...taskColors[0],
+  },
+  {
+    id: 1,
+    value: "They will be saved on your local device automatically :)",
+    ...taskColors[1],
+  },
+  {
+    id: 2,
+    value: "You can also choose to add them with voice recognition",
+    ...taskColors[2],
+  },
+  {
+    id: 3,
+    value: "Or just manually typing the tasks!",
+    ...taskColors[3],
+  },
 ];
 
 const localState = JSON.parse(localStorage.getItem("todoListStorage"));
@@ -43,9 +57,9 @@ export const TodoListProvider = ({ children }) => {
     // remove selected item from list
     const tempNewList = todoList.filter((item) => item.id !== itemId);
 
-    // add new id to every item after the removal
+    // add a new id to every item after the removal
     const newList = tempNewList.map((item, index) => {
-      return { id: index, value: item.value };
+      return { ...item, id: index };
     });
 
     setTodoList(newList);
@@ -57,6 +71,15 @@ export const TodoListProvider = ({ children }) => {
     setCompletedTodoList([...completedTodoList, task]);
 
     onRemoveTask(itemId);
+  };
+
+  const onChangeTaskColor = (itemId, bg, borderColor) => {
+    // Create a new list with the edited color of the task
+    const newList = todoList.map((item) => {
+      return item.id === itemId ? { ...item, bg: bg, borderColor } : item;
+    });
+
+    setTodoList(newList);
   };
 
   useEffect(() => {
@@ -76,6 +99,7 @@ export const TodoListProvider = ({ children }) => {
         setTodoList,
         onTaskDone,
         onRemoveTask,
+        onChangeTaskColor,
       }}
     >
       {children}
