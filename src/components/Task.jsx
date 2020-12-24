@@ -12,8 +12,6 @@ const StyledCard = styled.div`
   margin: 1.25rem 0rem;
 `;
 
-const Button = styled.button``;
-
 const Number = styled.p`
   font-weight: 600;
 `;
@@ -29,8 +27,8 @@ export const Task = ({ position, description }) => {
     <StyledCard>
       <Number>{position + 1}</Number>
       <Description>{description}</Description>
-      <Button onClick={() => onRemoveTask(position)}>Remove ❌</Button>
-      <Button onClick={() => onTaskDone(position)}>Done ✅</Button>
+      <button onClick={() => onRemoveTask(position)}>Remove ❌</button>
+      <button onClick={() => onTaskDone(position)}>Finish ✅</button>
     </StyledCard>
   );
 };

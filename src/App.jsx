@@ -3,6 +3,7 @@ import { Spinner } from "./components/Spinner";
 import styled, { css } from "styled-components";
 import { useTodoList } from "./context/TodoContext";
 import { Task, CompletedTask } from "./components/Task";
+import { Button } from "./components/Button";
 
 const Main = styled.div`
   display: flex;
@@ -20,49 +21,6 @@ const Header = styled.header`
   flex-direction: column;
 `;
 
-const Button = styled.button`
-  display: grid;
-  place-items: center;
-  width: 3.75rem;
-  height: 3.75rem;
-  border-radius: 50%;
-  font-size: 2.25rem;
-  color: white;
-  background-color: #71c9ce;
-  border: 2px solid #a6e3e9;
-  box-shadow: 0px;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #a6e3e9;
-  }
-  &:focus {
-    box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
-  }
-  margin-right: 0.9375rem;
-`;
-
-const ChangeTasksButton = styled.button`
-  display: grid;
-  place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: 1.5rem;
-  border-radius: 50%;
-  color: white;
-  background-color: #71c9ce;
-  border: 2px solid #a6e3e9;
-  box-shadow: 0px;
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #a6e3e9;
-  }
-  &:focus {
-    box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
-  }
-`;
-
 const Group = styled.div`
   display: inline-flex;
   justify-content: center;
@@ -70,6 +28,9 @@ const Group = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
+  & > button {
+    margin-right: 0.9375rem;
+  }
 `;
 
 const Copyright = styled.a`
@@ -202,14 +163,16 @@ const App = () => {
           >
             {isListening ? <Spinner /> : <ion-icon name="mic" />}
           </Button>
-          <ChangeTasksButton
+          <Button
+            fontSize="1.5rem"
+            size="2.5rem"
             onClick={onChangeDashboard}
             title={
               showCompletedTasks ? "Show current tasks" : "Show completed tasks"
             }
           >
             <ion-icon name="repeat" />
-          </ChangeTasksButton>
+          </Button>
         </Group>
 
         <Label isVisible={true}>Tasks done: {amountOfCompletedTasks}</Label>

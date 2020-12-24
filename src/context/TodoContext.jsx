@@ -11,13 +11,12 @@ export const useTodoList = () => {
 };
 
 /* 
-
   Features: 
   - Make it able to add tasks manually
   - Make it able to sort the task, so that they are draggable
   - Make it able to edit the description/content of each task
+  - Change "Be done with a task first! :)" message when you add a better UI for the completed dashboard
   - Update to have nicer UI
-
 */
 
 const initialState = [
