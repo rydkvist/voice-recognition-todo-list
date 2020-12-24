@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Spinner } from "./Spinner";
 import styled, { css } from "styled-components";
 import { useTodoList } from "./TodoContext";
-import { Card } from "./Card";
+import { Card, CompletedCard } from "./Card";
 
 const Main = styled.div`
   display: flex;
@@ -40,6 +40,37 @@ const Button = styled.button`
   &:focus {
     box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
   }
+  margin-right: 0.9375rem;
+`;
+
+const ChangeTasksButton = styled.button`
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  color: white;
+  background-color: #71c9ce;
+  border: 2px solid #a6e3e9;
+  box-shadow: 0px;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #a6e3e9;
+  }
+  &:focus {
+    box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
+  }
+`;
+
+const Group = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
 `;
 
 const Copyright = styled.a`
@@ -91,7 +122,12 @@ const List = styled.div`
 `;
 
 const App = () => {
-  const { todoList, setTodoList } = useTodoList();
+  const {
+    todoList,
+    completedTodoList,
+    setTodoList,
+    amountOfCompletedTasks,
+  } = useTodoList();
 
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -99,6 +135,8 @@ const App = () => {
   var recognition = new SpeechRecognition();
 
   const [isListening, setIsListening] = useState(false);
+
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
 
   const onRecognition = (e) => {
     e.preventDefault();
@@ -138,20 +176,37 @@ const App = () => {
           © Niklas Rydkvist
         </Copyright>
         <Title>Press the Microphone to add a new Task</Title>
-        <Button
-          type="button"
-          onClick={isListening ? stopListening : onRecognition}
-          title="Add a new task"
-        >
-          {isListening ? <Spinner /> : <ion-icon name="mic" />}
-        </Button>
+
+        <Group>
+          <Button
+            type="button"
+            onClick={isListening ? stopListening : onRecognition}
+            title="Add a new task"
+          >
+            {isListening ? <Spinner /> : <ion-icon name="mic" />}
+          </Button>
+          <ChangeTasksButton
+            onClick={() => setShowCompletedTasks(!showCompletedTasks)}
+            title={
+              showCompletedTasks ? "Show current tasks" : "Show completed tasks"
+            }
+          >
+            <ion-icon name="repeat" />
+          </ChangeTasksButton>
+        </Group>
+
+        <Label isVisible={true}>Tasks done: {amountOfCompletedTasks}</Label>
         <Label isVisible={isListening}>Listening...</Label>
       </Header>
 
       <List>
-        {todoList.map((item, index) => (
-          <Card key={index} description={item.value} position={item.id} />
-        ))}
+        {showCompletedTasks
+          ? completedTodoList.map((item, index) => (
+              <CompletedCard key={index} description={item.value} />
+            ))
+          : todoList.map((item, index) => (
+              <Card key={index} description={item.value} position={item.id} />
+            ))}
       </List>
     </Main>
   );

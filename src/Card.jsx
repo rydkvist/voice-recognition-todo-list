@@ -12,6 +12,8 @@ const StyledCard = styled.div`
   margin: 1.25rem 0rem;
 `;
 
+const RemoveButton = styled.button``;
+
 const Number = styled.p`
   font-weight: 600;
 `;
@@ -21,13 +23,25 @@ const Description = styled.p`
 `;
 
 export const Card = ({ position, description }) => {
-  const { onRemoveItem } = useTodoList();
+  const { onRemoveTask, onTaskDone } = useTodoList();
 
   return (
     <StyledCard>
       <Number>{position + 1}</Number>
       <Description>{description}</Description>
-      <button onClick={() => onRemoveItem(position)}>Remove this item</button>
+      <RemoveButton onClick={() => onRemoveTask(position)}>
+        Remove ❌
+      </RemoveButton>
+      <RemoveButton onClick={() => onTaskDone(position)}>Done ✅</RemoveButton>
+    </StyledCard>
+  );
+};
+
+export const CompletedCard = ({ description }) => {
+  return (
+    <StyledCard>
+      <Number>COMPLETED</Number>
+      <Description>{description}</Description>
     </StyledCard>
   );
 };
