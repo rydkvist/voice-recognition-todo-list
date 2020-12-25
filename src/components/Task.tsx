@@ -32,6 +32,10 @@ const Color = styled.button<{ bg: string; borderColor: string }>`
   border: 1px solid
     ${(props) => (props.borderColor ? props.borderColor : colors.yellow)};
   border-radius: 50%;
+  @media screen and (max-width: 48rem) {
+    width: 1rem;
+    height: 1rem;
+  }
 `;
 
 const Number = styled.p`

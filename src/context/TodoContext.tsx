@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { taskColors } from "../components/Task";
-import { getTodoList, getCompletedList } from "../utils/localStorage";
+import { getTodoList, getCompletedTodoList } from "../utils/localStorage";
 
 /* 
   Features: 
@@ -9,37 +8,7 @@ import { getTodoList, getCompletedList } from "../utils/localStorage";
   - Update to have nicer UI
 */
 
-export const initialState: TodoItemType[] = [
-  {
-    id: 0,
-    value: "Welcome! Here you can add, remove, and finish tasks",
-    ...taskColors[0],
-  },
-  {
-    id: 1,
-    value: "They will be saved on your local device automatically :)",
-    ...taskColors[1],
-  },
-  {
-    id: 2,
-    value: "You can also choose to add them with voice recognition",
-    ...taskColors[2],
-  },
-  {
-    id: 3,
-    value: "Or just manually typing the tasks!",
-    ...taskColors[3],
-  },
-];
-
-export type TodoItemType = {
-  id: number;
-  value: string;
-  bg: string;
-  borderColor: string;
-};
-
-const TodoListContext = createContext({
+const initialState = {
   todoList: [],
   completedTodoList: [],
   setTodoList: (data: any) => {},
@@ -49,7 +18,16 @@ const TodoListContext = createContext({
   onTaskDone: (itemId: number) => {},
   onRemoveTask: (itemId: number) => {},
   onEditDescription: (itemId: number, description: string) => {},
-});
+};
+
+export type TodoItemType = {
+  id: number;
+  value: string;
+  bg: string;
+  borderColor: string;
+};
+
+export const TodoListContext = createContext(initialState);
 
 export const useTodoList = () => {
   const context = useContext(TodoListContext);
@@ -62,7 +40,7 @@ export const useTodoList = () => {
 export const TodoListProvider = ({ children }: any) => {
   const [todoList, setTodoList] = useState(getTodoList());
   const [completedTodoList, setCompletedTodoList] = useState(
-    getCompletedList()
+    getCompletedTodoList()
   );
 
   const amountOfCompletedTasks = completedTodoList.length;

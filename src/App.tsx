@@ -18,8 +18,6 @@ const Header = styled.header`
   height: 100%;
   width: 100%;
   display: flex;
-  position: sticky;
-  top: 0;
   background-color: ${colors.darkCyan};
   justify-content: center;
   align-items: center;
@@ -89,6 +87,7 @@ const Label = styled.p<{ isVisible: boolean }>`
 
 const List = styled.div`
   width: 100%;
+  height: 80vh;
   display: flex;
   justify-content: flex-start;
   align-items: center;
