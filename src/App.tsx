@@ -5,6 +5,7 @@ import { useTodoList, TodoItemType } from "./context/TodoContext";
 import { Task, CompletedTask, taskColors } from "./components/Task";
 import { Button } from "./components/Button";
 import { colors } from "./utils/colors";
+import { Cookies } from "./components/Cookies";
 
 const Main = styled.div`
   display: flex;
@@ -214,6 +215,7 @@ const App = () => {
               />
             ))}
       </List>
+      <Cookies />
     </Main>
   );
 };

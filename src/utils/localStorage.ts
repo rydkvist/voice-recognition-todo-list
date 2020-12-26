@@ -30,5 +30,20 @@ export const getTodoList = () =>
       JSON.stringify(initialTodoListState)
   );
 
+export const storeTodoList = (todoList: TodoItemType[]) =>
+  localStorage.setItem("todoListStorage", JSON.stringify(todoList));
+
 export const getCompletedTodoList = () =>
   JSON.parse(localStorage.getItem("completedTodoListStorage") || "[]");
+
+export const storeCompletedTodoList = (completedList: TodoItemType[]) =>
+  localStorage.setItem(
+    "completedTodoListStorage",
+    JSON.stringify(completedList)
+  );
+
+export const getAcceptedCookies = () =>
+  JSON.parse(localStorage.getItem("acceptedCookies") || JSON.stringify(""));
+
+export const storeAcceptedCookies = (answer: string) =>
+  localStorage.setItem("acceptedCookies", JSON.stringify(answer));

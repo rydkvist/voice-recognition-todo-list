@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { getTodoList, getCompletedTodoList } from "../utils/localStorage";
+import {
+  getTodoList,
+  getCompletedTodoList,
+  storeTodoList,
+  storeCompletedTodoList,
+} from "../utils/localStorage";
 
 /* 
   Features: 
@@ -92,11 +97,8 @@ export const TodoListProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("todoListStorage", JSON.stringify(todoList));
-    localStorage.setItem(
-      "completedTodoListStorage",
-      JSON.stringify(completedTodoList)
-    );
+    storeTodoList(todoList);
+    storeCompletedTodoList(completedTodoList);
   }, [completedTodoList, todoList]);
 
   return (
