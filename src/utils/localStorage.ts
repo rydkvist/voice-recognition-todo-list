@@ -24,6 +24,8 @@ const initialTodoListState: TodoItemType[] = [
   },
 ];
 
+// TODO List Storage
+
 export const getTodoList = () =>
   JSON.parse(
     localStorage.getItem("todoListStorage") ||
@@ -41,6 +43,19 @@ export const storeCompletedTodoList = (completedList: TodoItemType[]) =>
     "completedTodoListStorage",
     JSON.stringify(completedList)
   );
+
+// TODO List Title Storage
+
+export const getListTitle = () =>
+  JSON.parse(
+    localStorage.getItem("listTitle") ||
+      JSON.stringify("TODO (change title with click)")
+  );
+
+export const storeListTitle = (title: string) =>
+  localStorage.setItem("listTitle", JSON.stringify(title));
+
+// Cookies Storage
 
 export const getAcceptedCookies = () =>
   JSON.parse(localStorage.getItem("acceptedCookies") || JSON.stringify(""));

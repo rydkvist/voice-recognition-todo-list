@@ -10,6 +10,8 @@ import {
   Features: 
   - Change "Be done with a task first! :)" message when you add a better UI for the completed dashboard
   - Add jest tests
+  - Make content of task editable
+  - Make position / title of task editable
   - Update to have nicer UI
 */
 

@@ -11,39 +11,93 @@ const StyledCard = styled.div<{ bg?: string; borderColor?: string }>`
   margin: 1.25rem 0rem;
   border-radius: 8px;
   background-color: ${(props) => (props.bg ? props.bg : taskColors[0].bg)};
+  transition: all 0.3s ease-in-out;
   border: 2px solid
     ${(props) =>
       props.borderColor ? props.borderColor : taskColors[0].borderColor};
 `;
 
-const Palette = styled.div`
+const JustifyBetween = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  & > button {
-    margin-left: 0.3125rem;
-  }
+  width: 100%;
+  margin-bottom: 0.3125rem;
+`;
+
+const Palette = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Color = styled.button<{ bg: string; borderColor: string }>`
   width: 0.75rem;
   height: 0.75rem;
+  margin-left: 0.3125rem;
   background-color: ${(props) => (props.bg ? props.bg : colors.white)};
   border: 1px solid
     ${(props) => (props.borderColor ? props.borderColor : colors.yellow)};
   border-radius: 50%;
+  transition: opacity 0.3s ease-in-out;
+
+  &:first-child {
+    margin-left: 0rem;
+  }
+  &:hover {
+    opacity: 0.5;
+  }
   @media screen and (max-width: 48rem) {
     width: 1rem;
     height: 1rem;
   }
 `;
 
-const Number = styled.p`
+const Title = styled.p`
   font-weight: 600;
+  text-overflow: ellipsis;
 `;
 
 const Description = styled.p`
   overflow-x: hidden;
+  margin-bottom: 0.625rem;
+`;
+
+const Group = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  & > button {
+    &:first-child {
+      margin-right: 0.9375rem;
+    }
+  }
+`;
+
+const Button = styled.button<{ bg?: string; borderColor?: string }>`
+  display: grid;
+  place-items: center;
+  padding: 0.25rem 0.625rem;
+  font-size: 1.375rem;
+  border-radius: 8px;
+  background-color: ${(props) => (props.bg ? props.bg : taskColors[0].bg)};
+  border: 1px solid
+    ${(props) =>
+      props.borderColor ? props.borderColor : taskColors[0].borderColor};
+  color: black;
+
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.borderColor ? props.borderColor : taskColors[0].borderColor};
+  }
+  &:focus {
+    box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
+  }
 `;
 
 export const taskColors = [
@@ -86,22 +140,42 @@ export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
 
   return (
     <StyledCard bg={bg} borderColor={borderColor}>
-      <Palette>
-        {taskColors.map((color, index) => (
-          <Color
-            key={index}
-            onClick={() =>
-              onChangeTaskColor(position, color.bg, color.borderColor)
-            }
-            bg={color.bg}
-            borderColor={color.borderColor}
-          />
-        ))}
-      </Palette>
-      <Number>{position + 1}</Number>
+      <JustifyBetween>
+        <Title>{position + 1}</Title>
+
+        <Palette>
+          {taskColors.map((color, index) => (
+            <Color
+              key={index}
+              onClick={() =>
+                onChangeTaskColor(position, color.bg, color.borderColor)
+              }
+              bg={color.bg}
+              borderColor={color.borderColor}
+            />
+          ))}
+        </Palette>
+      </JustifyBetween>
+
       <Description>{description}</Description>
-      <button onClick={() => onRemoveTask(position)}>Remove ❌</button>
-      <button onClick={() => onTaskDone(position)}>Finish ✅</button>
+      <Group>
+        <Button
+          bg={bg}
+          borderColor={borderColor}
+          title="Complete"
+          onClick={() => onTaskDone(position)}
+        >
+          <ion-icon name="checkmark-circle-outline" />
+        </Button>
+        <Button
+          bg={bg}
+          borderColor={borderColor}
+          title="Remove"
+          onClick={() => onRemoveTask(position)}
+        >
+          <ion-icon name="close-circle-outline" />
+        </Button>
+      </Group>
     </StyledCard>
   );
 };
@@ -109,7 +183,7 @@ export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
 export const CompletedTask = ({ description }: any) => {
   return (
     <StyledCard>
-      <Number>COMPLETED</Number>
+      <Title>COMPLETED</Title>
       <Description>{description}</Description>
     </StyledCard>
   );
