@@ -9,9 +9,8 @@ import { colors } from "../utils/colors";
 import { getListTitle, storeListTitle } from "../utils/localStorage";
 
 const StyledHeader = styled.header`
-  height: 100%;
-  width: 100%;
   display: flex;
+  width: 100%;
   background-color: ${colors.darkCyan};
   justify-content: center;
   align-items: center;
@@ -57,8 +56,9 @@ const Title = styled.input`
   text-align: center;
   padding: 0rem 1.25rem;
   opacity: 1;
+  text-overflow: ellipsis;
   width: 100%;
-  height: 100%;
+  max-width: 80vw;
   cursor: text;
 `;
 

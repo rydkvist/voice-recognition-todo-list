@@ -2,17 +2,11 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
-html {
-  height: 100%;
+html, body {
   margin: 0;
   padding: 0;
   background-color: #71c9ce; 
-}
-
-body {
   font-family: 'Open Sans', sans-serif;
-  height: 100%;
-  margin: 0;
 }
 
 button, input {
