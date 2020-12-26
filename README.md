@@ -2,7 +2,7 @@
 
 ## About
 
-This is a TODO list application where you can add, remove, and complete tasks. Both with voice recognition, or with manually adding them. 
+This is a TODO List application where you can add, remove, and finish tasks. Both with voice recognition, or by manually adding new tasks.
 
 ## Getting Started
 

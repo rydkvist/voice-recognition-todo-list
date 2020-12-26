@@ -13,6 +13,10 @@ import {
   - Make content of task editable
   - Make position / title of task editable
   - Update to have nicer UI
+  - To clear completed list
+  - Categorize list
+  - Fix width
+  - Add keybindings to lear
 */
 
 const initialState = {
