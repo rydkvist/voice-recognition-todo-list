@@ -15,7 +15,7 @@ Make sure to have installed one of the following dependencies:
 
 ### Running
 
-1. Clone the repository: `git clone git@github.com:Nojze/voice-recognition-todo-list.git`
-2. Go into the directory of the project: `cd voice-recognition-todo-list`
+1. Clone the repository: `git clone git@github.com:Nojze/todo-list-application.git`
+2. Go into the directory of the project: `cd todo-list-application`
 3. Install packages: `npm install` or `yarn install`
 4. Start the project: `npm start` or `yarn start`
