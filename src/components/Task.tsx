@@ -48,6 +48,7 @@ const Color = styled.button<{ bg: string; borderColor: string }>`
     opacity: 0.5;
   }
   @media screen and (max-width: 48rem) {
+    margin-left: 0.625rem;
     width: 1rem;
     height: 1rem;
   }
@@ -123,6 +124,14 @@ export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
     onEditDescription,
   } = useTodoList();
 
+  const onDone = (e: any) => {
+    onTaskDone(position);
+  };
+
+  const onRemove = (e: any) => {
+    onRemoveTask(position);
+  };
+
   // const [descriptionInput, setDescriptionInput] = useState(description);
 
   // const onChangeDescription = (e: any) => {
@@ -163,7 +172,7 @@ export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
           bg={bg}
           borderColor={borderColor}
           title="Complete"
-          onClick={() => onTaskDone(position)}
+          onClick={onDone}
         >
           <ion-icon name="checkmark-circle-outline" />
         </Button>
@@ -171,7 +180,7 @@ export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
           bg={bg}
           borderColor={borderColor}
           title="Remove"
-          onClick={() => onRemoveTask(position)}
+          onClick={onRemove}
         >
           <ion-icon name="close-circle-outline" />
         </Button>
