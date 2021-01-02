@@ -1,4 +1,4 @@
-[![Deploy Status](https://api.netlify.com/api/v1/badges/d7f91628-d842-45ea-9f71-579a86ae839a/deploy-status)](https://app.netlify.com/sites/voice-recognition-todo-list/deploys)
+[![Deployment](https://api.netlify.com/api/v1/badges/d7f91628-d842-45ea-9f71-579a86ae839a/deploy-status)](https://app.netlify.com/sites/voice-recognition-todo-list/deploys)
 
 ## About
 
