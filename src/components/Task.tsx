@@ -1,7 +1,97 @@
-import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { TodoItemType, useTodoList } from "../context/TodoContext";
+import { useTodoList } from "../context/TodoContext";
 import { colors } from "../utils/colors";
+
+type TaskProps = {
+  position: number;
+  description: string;
+  bg: string;
+  borderColor: string;
+};
+
+export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
+  const { onRemoveTask, onTaskDone, onChangeTaskColor } = useTodoList();
+
+  const onDone = (e: any) => {
+    onTaskDone(position);
+  };
+
+  const onRemove = (e: any) => {
+    onRemoveTask(position);
+  };
+
+  // const [descriptionInput, setDescriptionInput] = useState(description);
+
+  // const onChangeDescription = (e: any) => {
+  //   setDescriptionInput(e.target.value);
+  //   onEditDescription(position, descriptionInput);
+  // };
+
+  // useEffect(() => {
+  //   const thisTask = todoList.find(
+  //     (item: TodoItemType) => item.id === position
+  //   ) || { value: "" };
+
+  //   setDescriptionInput(thisTask.value);
+  // }, [todoList, position]);
+
+  return (
+    <StyledCard bg={bg} borderColor={borderColor}>
+      <JustifyBetween>
+        <Title>{position + 1}</Title>
+
+        <Palette>
+          {taskColors.map((color, index) => (
+            <Color
+              key={index}
+              onClick={() =>
+                onChangeTaskColor(position, color.bg, color.borderColor)
+              }
+              bg={color.bg}
+              borderColor={color.borderColor}
+            />
+          ))}
+        </Palette>
+      </JustifyBetween>
+
+      <Description>{description}</Description>
+      <Group>
+        <Button
+          bg={bg}
+          borderColor={borderColor}
+          title="Complete"
+          onClick={onDone}
+        >
+          <ion-icon name="checkmark-circle-outline" />
+        </Button>
+        <Button
+          bg={bg}
+          borderColor={borderColor}
+          title="Remove"
+          onClick={onRemove}
+        >
+          <ion-icon name="close-circle-outline" />
+        </Button>
+      </Group>
+    </StyledCard>
+  );
+};
+
+export const CompletedTask = ({ description }: any) => {
+  return (
+    <StyledCard>
+      <Title>COMPLETED</Title>
+      <Description>{description}</Description>
+    </StyledCard>
+  );
+};
+
+export const taskColors = [
+  { bg: colors.lightCyan, borderColor: colors.cyan },
+  { bg: colors.pink, borderColor: colors.darkPink },
+  { bg: colors.pistachio, borderColor: colors.olive },
+  { bg: colors.lightYellow, borderColor: colors.yellow },
+];
 
 const StyledCard = styled.div<{ bg?: string; borderColor?: string }>`
   display: flex;
@@ -100,100 +190,3 @@ const Button = styled.button<{ bg?: string; borderColor?: string }>`
     box-shadow: 0px 0px 5px 2px rgba(163, 221, 203, 0.75);
   }
 `;
-
-export const taskColors = [
-  { bg: colors.lightCyan, borderColor: colors.cyan },
-  { bg: colors.pink, borderColor: colors.darkPink },
-  { bg: colors.pistachio, borderColor: colors.olive },
-  { bg: colors.lightYellow, borderColor: colors.yellow },
-];
-
-type TaskProps = {
-  position: number;
-  description: string;
-  bg: string;
-  borderColor: string;
-};
-
-export const Task = ({ position, description, bg, borderColor }: TaskProps) => {
-  const {
-    todoList,
-    onRemoveTask,
-    onTaskDone,
-    onChangeTaskColor,
-    onEditDescription,
-  } = useTodoList();
-
-  const onDone = (e: any) => {
-    onTaskDone(position);
-  };
-
-  const onRemove = (e: any) => {
-    onRemoveTask(position);
-  };
-
-  // const [descriptionInput, setDescriptionInput] = useState(description);
-
-  // const onChangeDescription = (e: any) => {
-  //   setDescriptionInput(e.target.value);
-  //   onEditDescription(position, descriptionInput);
-  // };
-
-  // useEffect(() => {
-  //   const thisTask = todoList.find(
-  //     (item: TodoItemType) => item.id === position
-  //   ) || { value: "" };
-
-  //   setDescriptionInput(thisTask.value);
-  // }, [todoList, position]);
-
-  return (
-    <StyledCard bg={bg} borderColor={borderColor}>
-      <JustifyBetween>
-        <Title>{position + 1}</Title>
-
-        <Palette>
-          {taskColors.map((color, index) => (
-            <Color
-              key={index}
-              onClick={() =>
-                onChangeTaskColor(position, color.bg, color.borderColor)
-              }
-              bg={color.bg}
-              borderColor={color.borderColor}
-            />
-          ))}
-        </Palette>
-      </JustifyBetween>
-
-      <Description>{description}</Description>
-      <Group>
-        <Button
-          bg={bg}
-          borderColor={borderColor}
-          title="Complete"
-          onClick={onDone}
-        >
-          <ion-icon name="checkmark-circle-outline" />
-        </Button>
-        <Button
-          bg={bg}
-          borderColor={borderColor}
-          title="Remove"
-          onClick={onRemove}
-        >
-          <ion-icon name="close-circle-outline" />
-        </Button>
-      </Group>
-    </StyledCard>
-  );
-};
-
-export const CompletedTask = ({ description }: any) => {
-  return (
-    <StyledCard>
-      <Title>COMPLETED</Title>
-      <Description>{description}</Description>
-    </StyledCard>
-  );
-};

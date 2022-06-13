@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useTodoList, TodoItemType } from "../context/TodoContext";
 import { Task, CompletedTask } from "../components/Task";
