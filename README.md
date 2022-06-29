@@ -1,4 +1,4 @@
-## Voice Recognition To-Do List Application
+## Voice Recognition To-Do List
 
 A Voice Recognition To-Do List application where you can add, remove, and finish tasks with your voice (or manually).
 ## Getting Started
@@ -22,4 +22,4 @@ Make sure to have installed the following dependency:
 Niklas Rydkvist: [niklas@rydkvist.com](mailto:niklas@rydkvist.com)
 
 ## License
-Nojze's Voice Recognition To-Do List Application is available under the [MIT license](https://github.com/Nojze/voice-todo-list-application/blob/main/LICENSE).
+Nojze's Voice Recognition To-Do List is available under the [MIT license](https://github.com/Nojze/voice-recognition-todo-list/blob/main/LICENSE).
