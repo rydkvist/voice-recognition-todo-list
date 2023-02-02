@@ -1,6 +1,6 @@
 ## Voice Recognition To-Do List
 
-Simplify task management with voice recognition. Built with React, TypeScript, and Styled Components.
+Simplify your task management with this cutting-edge voice recognition application. Add, remove, and mark tasks as done, all with the power of your voice. Built with React, TypeScript, and Styled Components, this to-do list app is the perfect blend of convenience and innovation.
 
 ## Getting Started
 
