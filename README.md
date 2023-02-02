@@ -1,6 +1,7 @@
 ## Voice Recognition To-Do List
 
-A Voice Recognition To-Do List application where you can add, remove, and finish tasks with your voice (or manually).
+Simplify task management with voice recognition. Built with React, TypeScript, and Styled Components.
+
 ## Getting Started
 
 ### Installation
